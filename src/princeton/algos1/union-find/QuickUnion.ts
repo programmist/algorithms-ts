@@ -1,13 +1,30 @@
-// Slow, naive algorithm
+// QuickUnion (recursive implementation)
+/**
+ * # Potential issues:
+ * - O(n) time complexity for findRoot due to potential for "tall" trees with no branches
+ * - Union is also slow due to using findRoot
+ *
+ * # Enhancement Ideas
+ * - Balance trees to ensure findRoot of O(log n) time complexity
+ */
 export class QuickUnion {
   private ids: number[];
 
   constructor(size: number) {
-    this.ids = Array.from({ length: size }, (e, i) => i);
+    this.ids = Array.from({ length: size }, (_, i) => i);
   }
 
-  union(p: number, q: number) {
-    this.ids[p] = q;
+  union(q: number, p: number) {
+    if (this.connected(q, p)) return;
+
+    console.log(`union(${q},${p})`);
+    const pRoot = this.findRoot(p);
+    const qRoot = this.findRoot(q);
+    this.ids[qRoot] = pRoot;
+  }
+
+  connected(q: number, p: number): boolean {
+    return this.findRoot(q) === this.findRoot(p);
   }
 
   findRoot(node: number): number {
@@ -15,10 +32,16 @@ export class QuickUnion {
     return parent === node ? parent : this.findRoot(parent);
   }
 
+  /**
+   * Print the backing array
+   */
   printRaw() {
     console.log(this.ids);
   }
 
+  /**
+   * Print text-based tree structures with roots on the left
+   */
   print() {
     const visited = new Array(this.ids.length).fill(false);
     for (let node = 0; node < this.ids.length; node++) {

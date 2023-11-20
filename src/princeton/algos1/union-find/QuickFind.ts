@@ -3,7 +3,7 @@ export class QuickFind {
   private ids: number[];
 
   constructor(size: number) {
-    this.ids = Array.from({ length: size }, (e, i) => i);
+    this.ids = Array.from({ length: size }, (_, i) => i);
   }
 
   connected(p: number, q: number) {
