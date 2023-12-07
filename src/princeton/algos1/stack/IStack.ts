@@ -8,10 +8,10 @@ export default interface IStack<T> {
   /**
    * Remove an item from the top of the stack
    */
-  pop(): T;
+  pop(): T | undefined;
 
   /**
    * Return a reference to the item at the top of hte stack
    */
-  peek(): T;
+  peek(): T | undefined;
 }
