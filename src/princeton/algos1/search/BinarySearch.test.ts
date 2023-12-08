@@ -1,4 +1,8 @@
 import { binarySearch } from "./BinarySearch";
+import { expect, test } from "vitest";
+
+// test stub
+test.todo("test...", () => {});
 
 function getRandomInt(min: number, max: number) {
   return Math.round(Math.random() * (max - min) + min);

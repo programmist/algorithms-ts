@@ -1,4 +1,9 @@
 import { QuickFind } from "./QuickFind";
+import { expect, test, describe } from "vitest";
+
+// test stub
+
+test.todo("test...", () => {});
 
 const components = new QuickFind(10);
 components.forEach((c, i) => {

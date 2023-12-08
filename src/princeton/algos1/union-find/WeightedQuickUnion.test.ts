@@ -1,4 +1,8 @@
 import { WeightedQuickUnion } from "./WeightedQuickUnion";
+import { expect, test } from "vitest";
+
+// test stub
+test.todo("test...", () => {});
 
 const components = new WeightedQuickUnion(10);
 const printState = () => {

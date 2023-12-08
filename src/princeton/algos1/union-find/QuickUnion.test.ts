@@ -1,4 +1,8 @@
 import { QuickUnion } from "./QuickUnion";
+import { expect, test } from "vitest";
+
+// test stub
+test.todo("test...", () => {});
 
 const components = new QuickUnion(10);
 const printState = () => {
