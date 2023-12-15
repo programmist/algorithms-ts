@@ -9,7 +9,7 @@ const arraysEqual = (expected: number[], actual: number[]) => {
   });
 };
 
-describe("LinkedList", () => {
+describe("LinkedList positive tests", () => {
   test("constructor", () => {
     const list = new LinkedList<number>([3, 9, 4]);
     let isEqual = arraysEqual([3, 9, 4], Array.from(list) as number[]);
@@ -96,6 +96,12 @@ describe("LinkedList", () => {
   });
 
   test("get", () => {
-    const list = new LinkedList<number>();
+    const list = new LinkedList<number>([1, 2, 3]);
+    expect(list.get(0)).toBe(1);
+    expect(list.get(1)).toBe(2);
+    expect(list.get(2)).toBe(3);
   });
 });
+
+// TODO LinkedList negative tests
+describe.todo("LinkedList negative tests", () => {});
