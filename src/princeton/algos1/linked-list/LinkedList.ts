@@ -35,6 +35,7 @@ export default class LinkedList<T> {
       this.tail = this.head;
     } else {
       this.tail!.next = node;
+      node.prev = this.tail;
       this.tail = node;
     }
     this.length++;
@@ -56,14 +57,16 @@ export default class LinkedList<T> {
       const insertedNode = new Node<T>(element);
       if (index === 0) {
         insertedNode.next = this.head;
+        this.head.prev = insertedNode;
         this.head = insertedNode;
       } else if (index === this.length) {
         this.tail!.next = insertedNode;
+        insertedNode.prev = this.tail;
         this.tail = insertedNode;
       } else {
-        const prevNode = this.getNode(index - 1);
-        insertedNode.next = prevNode!.next;
-        prevNode!.next = insertedNode;
+        const nodeAtIndex = this.getNode(index);
+        nodeAtIndex!.prev!.next = insertedNode;
+        insertedNode.next = nodeAtIndex;
       }
       this.length++;
     }
@@ -79,7 +82,9 @@ export default class LinkedList<T> {
       this.head = this.tail = undefined;
     } else {
       this.head = this.head!.next;
+      this.head!.prev = undefined;
     }
+    this.length--;
     return val;
   }
 
@@ -92,8 +97,10 @@ export default class LinkedList<T> {
     if (this.length === 1) {
       this.head = this.tail = undefined;
     } else {
-      this.tail = this.tail?.prev;
+      this.tail = this.tail!.prev;
+      this.tail!.next = undefined;
     }
+    this.length--;
     return val;
   }
 

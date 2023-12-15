@@ -1,10 +1,21 @@
 import { describe, expect, test } from "vitest";
 import { LinkedList } from ".";
 
-const arraysEqual = (expected: number[], actual: number[]) =>
-  expected.every((val, index) => val === actual[index]);
+const arraysEqual = (expected: number[], actual: number[]) => {
+  const outer = expected.length > actual.length ? expected : actual;
+  const inner = outer == expected ? actual : expected;
+  return outer.every((val, index) => {
+    return val === inner[index];
+  });
+};
 
 describe("LinkedList", () => {
+  test("constructor", () => {
+    const list = new LinkedList<number>([3, 9, 4]);
+    let isEqual = arraysEqual([3, 9, 4], Array.from(list) as number[]);
+    expect(isEqual).toBe(true);
+  });
+
   test("isEmpty is true", () => {
     const list = new LinkedList<number>();
     expect(list.isEmpty()).toBe(true);
@@ -52,5 +63,39 @@ describe("LinkedList", () => {
     list.insert(1, 1.5);
     isEqual = arraysEqual([1, 1.5, 2, 3, 4], Array.from(list) as number[]);
     expect(isEqual).toBe(true);
+  });
+
+  test("removeHead", () => {
+    const list = new LinkedList<number>([1, 2, 3]);
+
+    expect(list.removeHead()).toBe(1);
+    let isEqual = arraysEqual([2, 3], Array.from(list) as number[]);
+    expect(isEqual).toBe(true);
+
+    expect(list.removeHead()).toBe(2);
+    isEqual = arraysEqual([3], Array.from(list) as number[]);
+    expect(isEqual).toBe(true);
+
+    expect(list.removeHead()).toBe(3);
+    expect(Array.from(list).length).toBe(0);
+  });
+
+  test("removeTail", () => {
+    const list = new LinkedList<number>([1, 2, 3]);
+
+    expect(list.removeTail()).toBe(3);
+    let isEqual = arraysEqual([1, 2], Array.from(list) as number[]);
+    expect(isEqual).toBe(true);
+
+    expect(list.removeTail()).toBe(2);
+    isEqual = arraysEqual([1], Array.from(list) as number[]);
+    expect(isEqual).toBe(true);
+
+    expect(list.removeTail()).toBe(1);
+    expect(Array.from(list).length).toBe(0);
+  });
+
+  test("get", () => {
+    const list = new LinkedList<number>();
   });
 });
