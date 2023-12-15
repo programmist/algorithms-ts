@@ -1,12 +1,38 @@
 import Node from "./Node";
 
 // TODO: Test
-export default class LinkedList<T> implements List<T> {
+export default class LinkedList<T> {
   private length = 0;
+  public head?: Node<T>;
+  public tail?: Node<T>;
 
-  constructor(public head?: Node<T>, public tail?: Node<T>) {}
+  constructor(list?: T[]) {
+    if (list) {
+      list.forEach((element: T) => {
+        this.append(element);
+      });
+    }
+  }
 
-  append(element: T) {
+  private getNode(index: number): Node<T> | undefined {
+    if (index < 0 || index >= this.length) {
+      throw Error("Index out of bounds");
+    }
+
+    let count = 0;
+    let current = this.head;
+    while (count < index) {
+      current = current!.next;
+      count++;
+    }
+    return current;
+  }
+
+  /**
+   * Add element to end of list
+   * @param element
+   */
+  public append(element: T) {
     const node = new Node<T>(element);
     if (!this.head) {
       this.head = node;
@@ -18,30 +44,116 @@ export default class LinkedList<T> implements List<T> {
     this.length++;
   }
 
-  get(index: number): T {
-    if (index < 0 || index >= this.length) {
-      throw Error("Index out of bounds");
+  /**
+   * Add element to the given index in the list
+   * @param index
+   * @param element
+   */
+  public insert(index: number, element: T): void {
+    if (!this.head) {
+      this.append(element);
     } else {
-      let count = 0;
-      let current = this.head;
-      while (count < index) {
-        current = current!.next;
-        count++;
+      const insertedNode = new Node<T>(element);
+      if (index === 0) {
+        insertedNode.next = this.head;
+        this.head = insertedNode;
+      } else {
+        const nodeAtIndex = this.getNode(index);
+        insertedNode.next = nodeAtIndex;
+        nodeAtIndex!.prev = insertedNode;
       }
-      return current!.value;
+      this.length++;
     }
   }
 
+  public removeHead(): T {
+    if (this.isEmpty()) {
+      throw Error("List is empty");
+    }
+
+    const val = this.head!.value;
+    if (this.length === 1) {
+      this.head = this.tail = undefined;
+    } else {
+      this.head = this.head!.next;
+    }
+    return val;
+  }
+
+  public removeTail(): T {
+    if (this.isEmpty()) {
+      throw Error("List is empty");
+    }
+
+    const val = this.tail!.value;
+    if (this.length === 1) {
+      this.head = this.tail = undefined;
+    } else {
+      this.tail = this.tail?.prev;
+    }
+    return val;
+  }
+
+  get(index: number): T {
+    if (this.isEmpty()) {
+      throw Error("List is empty");
+    }
+
+    return this.getNode(index)!.value;
+  }
+
   isEmpty(): boolean {
-    return this.head == undefined;
+    return !this.head;
+  }
+
+  [Symbol.iterator]() {
+    let current = this.head;
+    return {
+      next: () => {
+        const val = { done: !current, value: current?.value };
+        current = current?.next;
+        return val;
+      },
+    };
   }
 }
+
+// private removeNode(index: number): Node<T> {
+//   const node = this.getNode(index);
+//   if (this.length === 1) {
+//     //
+//   } else {
+//     //
+//   }
+//   const val = node!.value;
+//   node?.prev = node?.next;
+// }
+
+// public remove(index: number): T {
+//   if (index < 0 || index >= this.length) {
+//     throw Error("Index out of bounds");
+//   }
+
+//   if (this.isEmpty()) {
+//     throw Error("List is empty");
+//   }
+
+//   if (index === 0) {
+//     return this.removeHead();
+//   } else if (index === this.length - 1) {
+//     return this.removeTail();
+//   } else {
+//     return this.removeNode(index)!.value;
+//   }
+// }
 
 /**
  * Very basic List API
  */
-interface List<T> {
-  append(e: T): void;
-  get(index: number): T;
-  isEmpty(): boolean;
-}
+// interface List<T> {
+//   append(e: T): void;
+//   insert(index: number): void;
+//   remove(index: number): T;
+//   get(index: number): T;
+//   isEmpty(): boolean;
+// }
