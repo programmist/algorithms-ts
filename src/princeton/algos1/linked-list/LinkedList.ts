@@ -15,10 +15,6 @@ export default class LinkedList<T> {
   }
 
   private getNode(index: number): Node<T> | undefined {
-    if (index < 0 || index >= this.length) {
-      throw Error("Index out of bounds");
-    }
-
     let count = 0;
     let current = this.head;
     while (count < index) {
@@ -50,6 +46,10 @@ export default class LinkedList<T> {
    * @param element
    */
   public insert(index: number, element: T): void {
+    if (index < 0 || index > this.length) {
+      throw Error("Index out of bounds");
+    }
+
     if (!this.head) {
       this.append(element);
     } else {
@@ -57,10 +57,13 @@ export default class LinkedList<T> {
       if (index === 0) {
         insertedNode.next = this.head;
         this.head = insertedNode;
+      } else if (index === this.length) {
+        this.tail!.next = insertedNode;
+        this.tail = insertedNode;
       } else {
-        const nodeAtIndex = this.getNode(index);
-        insertedNode.next = nodeAtIndex;
-        nodeAtIndex!.prev = insertedNode;
+        const prevNode = this.getNode(index - 1);
+        insertedNode.next = prevNode!.next;
+        prevNode!.next = insertedNode;
       }
       this.length++;
     }
@@ -97,6 +100,9 @@ export default class LinkedList<T> {
   get(index: number): T {
     if (this.isEmpty()) {
       throw Error("List is empty");
+    }
+    if (index < 0 || index >= this.length) {
+      throw Error("Index out of bounds");
     }
 
     return this.getNode(index)!.value;
