@@ -2,9 +2,21 @@ import Node from "./Node";
 
 // TODO: Test
 export default class LinkedList<T> {
-  private length = 0;
-  public head?: Node<T>;
-  public tail?: Node<T>;
+  private _length = 0;
+  private _head?: Node<T>;
+  private _tail?: Node<T>;
+
+  get length() {
+    return this._length;
+  }
+
+  get head() {
+    return this._head;
+  }
+
+  get tail() {
+    return this._tail;
+  }
 
   constructor(list?: T[]) {
     if (list) {
@@ -16,7 +28,7 @@ export default class LinkedList<T> {
 
   private getNode(index: number): Node<T> | undefined {
     let count = 0;
-    let current = this.head;
+    let current = this._head;
     while (count < index) {
       current = current!.next;
       count++;
@@ -30,15 +42,15 @@ export default class LinkedList<T> {
    */
   public append(element: T) {
     const node = new Node<T>(element);
-    if (!this.head) {
-      this.head = node;
-      this.tail = this.head;
+    if (!this._head) {
+      this._head = node;
+      this._tail = this._head;
     } else {
-      this.tail!.next = node;
-      node.prev = this.tail;
-      this.tail = node;
+      this._tail!.next = node;
+      node.prev = this._tail;
+      this._tail = node;
     }
-    this.length++;
+    this._length++;
   }
 
   /**
@@ -47,28 +59,28 @@ export default class LinkedList<T> {
    * @param element
    */
   public insert(index: number, element: T): void {
-    if (index < 0 || index > this.length) {
+    if (index < 0 || index > this._length) {
       throw Error("Index out of bounds");
     }
 
-    if (!this.head) {
+    if (!this._head) {
       this.append(element);
     } else {
       const insertedNode = new Node<T>(element);
       if (index === 0) {
-        insertedNode.next = this.head;
-        this.head.prev = insertedNode;
-        this.head = insertedNode;
-      } else if (index === this.length) {
-        this.tail!.next = insertedNode;
-        insertedNode.prev = this.tail;
-        this.tail = insertedNode;
+        insertedNode.next = this._head;
+        this._head.prev = insertedNode;
+        this._head = insertedNode;
+      } else if (index === this._length) {
+        this._tail!.next = insertedNode;
+        insertedNode.prev = this._tail;
+        this._tail = insertedNode;
       } else {
         const nodeAtIndex = this.getNode(index);
         nodeAtIndex!.prev!.next = insertedNode;
         insertedNode.next = nodeAtIndex;
       }
-      this.length++;
+      this._length++;
     }
   }
 
@@ -77,14 +89,14 @@ export default class LinkedList<T> {
       throw Error("List is empty");
     }
 
-    const val = this.head!.value;
-    if (this.length === 1) {
-      this.head = this.tail = undefined;
+    const val = this._head!.value;
+    if (this._length === 1) {
+      this._head = this._tail = undefined;
     } else {
-      this.head = this.head!.next;
-      this.head!.prev = undefined;
+      this._head = this._head!.next;
+      this._head!.prev = undefined;
     }
-    this.length--;
+    this._length--;
     return val;
   }
 
@@ -93,14 +105,14 @@ export default class LinkedList<T> {
       throw Error("List is empty");
     }
 
-    const val = this.tail!.value;
-    if (this.length === 1) {
-      this.head = this.tail = undefined;
+    const val = this._tail!.value;
+    if (this._length === 1) {
+      this._head = this._tail = undefined;
     } else {
-      this.tail = this.tail!.prev;
-      this.tail!.next = undefined;
+      this._tail = this._tail!.prev;
+      this._tail!.next = undefined;
     }
-    this.length--;
+    this._length--;
     return val;
   }
 
@@ -108,7 +120,7 @@ export default class LinkedList<T> {
     if (this.isEmpty()) {
       throw Error("List is empty");
     }
-    if (index < 0 || index >= this.length) {
+    if (index < 0 || index >= this._length) {
       throw Error("Index out of bounds");
     }
 
@@ -116,11 +128,11 @@ export default class LinkedList<T> {
   }
 
   isEmpty(): boolean {
-    return !this.head;
+    return !this._head;
   }
 
   [Symbol.iterator]() {
-    let current = this.head;
+    let current = this._head;
     return {
       next: () => {
         const val = { done: !current, value: current?.value };

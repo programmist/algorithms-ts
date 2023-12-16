@@ -11,7 +11,12 @@ export default interface IStack<T> {
   pop(): T;
 
   /**
-   * Return a reference to the item at the top of hte stack
+   * Return a reference to the item at the top of the stack
    */
   peek(): T;
+
+  /**
+   * Returns the current size of the stack
+   */
+  size(): number;
 }

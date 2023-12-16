@@ -1,16 +1,26 @@
 import IStack from "./IStack";
-import { LinkedList } from "@/princeton/linked-list";
+import { LinkedList } from "../linked-list/";
 
 // TODO: test
-export default abstract class LinkedStack<T> implements IStack<T> {
+export default class LinkedStack<T> implements IStack<T> {
+  private list: LinkedList<T> = new LinkedList<T>();
+
   push(item: T): void {
-    throw new Error("Method not implemented.");
+    this.list.append(item);
   }
   pop(): T {
-    throw new Error("Method not implemented.");
+    if (this.size() === 0) {
+      throw new Error("Empty Stack");
+    }
+    return this.list.removeTail();
   }
   peek(): T {
-    throw new Error("Method not implemented.");
+    if (this.size() === 0) {
+      throw new Error("Empty Stack");
+    }
+    return this.list.tail!.value;
   }
-  private stack = new LinkedList<T>();
+  size(): number {
+    return this.list.length;
+  }
 }
