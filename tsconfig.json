@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "paths": {
-      "@/princeton/*": ["./src/princeton/algos1/*"]
+      "@/ds/*": ["./src/datastructures/*"],
+      "@/algos/*": ["./src/algorithms/*"]
     }
   }
 }

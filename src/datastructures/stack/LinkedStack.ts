@@ -1,5 +1,5 @@
 import IStack from "./IStack";
-import { LinkedList } from "../linked-list/";
+import { LinkedList } from "../linked-list";
 
 // TODO: test
 export default class LinkedStack<T> implements IStack<T> {
