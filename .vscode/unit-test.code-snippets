@@ -1,0 +1,16 @@
+{
+  "test stub": {
+    "scope": "javascript,typescript",
+    "prefix": "unit test vitest stub",
+    "body": [
+      "import { describe, expect, test } from 'vitest';",
+      "",
+      "describe('<Test Suite name>', () => {",
+      "  test('should...', () => {",
+      "    expect(1 + 1).toBe(2);",
+      "  });",
+      "});"
+    ],
+    "description": "Create vitest unit test suite stub"
+  }
+}
