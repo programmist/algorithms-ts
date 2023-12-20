@@ -1,19 +1,10 @@
 import { describe, expect, test } from "vitest";
 import { LinkedList } from ".";
 
-const arraysEqual = (expected: number[], actual: number[]) => {
-  const outer = expected.length > actual.length ? expected : actual;
-  const inner = outer == expected ? actual : expected;
-  return outer.every((val, index) => {
-    return val === inner[index];
-  });
-};
-
 describe("LinkedList positive tests", () => {
   test("constructor", () => {
     const list = new LinkedList<number>([3, 9, 4]);
-    let isEqual = arraysEqual([3, 9, 4], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([3, 9, 4]).toEqual(Array.from(list));
   });
 
   test("isEmpty is true", () => {
@@ -30,51 +21,41 @@ describe("LinkedList positive tests", () => {
   test("append", () => {
     const list = new LinkedList<number>();
     list.append(1);
-    let isEqual = arraysEqual([1], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([1]).toEqual(Array.from(list));
 
     list.append(2);
-    isEqual = arraysEqual([1, 2], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([1, 2]).toEqual(Array.from(list));
 
     list.append(3);
-    isEqual = arraysEqual([1, 2, 3], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([1, 2, 3]).toEqual(Array.from(list));
   });
 
   test("insert", () => {
     const list = new LinkedList<number>();
     list.insert(0, 2);
-    let isEqual = arraysEqual([2], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([2]).toEqual(Array.from(list));
 
     list.insert(0, 1);
-    isEqual = arraysEqual([1, 2], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([1, 2]).toEqual(Array.from(list));
 
     list.insert(2, 4);
-    isEqual = arraysEqual([1, 2, 4], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([1, 2, 4]).toEqual(Array.from(list));
 
     list.insert(2, 3);
-    isEqual = arraysEqual([1, 2, 3, 4], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([1, 2, 3, 4]).toEqual(Array.from(list));
 
     list.insert(1, 1.5);
-    isEqual = arraysEqual([1, 1.5, 2, 3, 4], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([1, 1.5, 2, 3, 4]).toEqual(Array.from(list));
   });
 
   test("removeHead", () => {
     const list = new LinkedList<number>([1, 2, 3]);
 
     expect(list.removeHead()).toBe(1);
-    let isEqual = arraysEqual([2, 3], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([2, 3]).toEqual(Array.from(list));
 
     expect(list.removeHead()).toBe(2);
-    isEqual = arraysEqual([3], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([3]).toEqual(Array.from(list));
 
     expect(list.removeHead()).toBe(3);
     expect(Array.from(list).length).toBe(0);
@@ -84,12 +65,10 @@ describe("LinkedList positive tests", () => {
     const list = new LinkedList<number>([1, 2, 3]);
 
     expect(list.removeTail()).toBe(3);
-    let isEqual = arraysEqual([1, 2], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([1, 2]).toEqual(Array.from(list));
 
     expect(list.removeTail()).toBe(2);
-    isEqual = arraysEqual([1], Array.from(list) as number[]);
-    expect(isEqual).toBe(true);
+    expect([1]).toEqual(Array.from(list));
 
     expect(list.removeTail()).toBe(1);
     expect(Array.from(list).length).toBe(0);
