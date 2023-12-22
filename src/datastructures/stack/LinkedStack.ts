@@ -15,9 +15,6 @@ export default class LinkedStack<T> implements IStack<T> {
     return this.list.removeTail();
   }
   peek(): T {
-    if (this.size() === 0) {
-      throw new Error("Empty Stack");
-    }
     return this.list.tail!.value;
   }
   size(): number {

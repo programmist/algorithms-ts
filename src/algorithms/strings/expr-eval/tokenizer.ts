@@ -19,6 +19,10 @@ const precedenceMap = operators.reduce(
   new Map<Operator, number>()
 );
 
+export function opPrecedence(val: Operator) {
+  return precedenceMap.get(val as Operator);
+}
+
 const isOperator = (char: Operator) => operators.includes(char);
 const isOperand = (char: string) => isNumber.test(char);
 const isParen = (char: string) => char === "(" || char === ")";
