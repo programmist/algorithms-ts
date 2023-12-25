@@ -1,17 +1,22 @@
-export default interface IQueue<T> {
+export default interface Queue<T> {
   /**
    * Add an item to the head of the queue
    * @param item
    */
-  add(item: T): void;
+  enqueue(item: T): void;
 
   /**
    * Remove and item from the tail of the queue
    */
-  remove(): T;
+  dequeue(): T;
 
   /**
    * Return a reference to the item at the head of the queue
    */
   peek(): T;
+
+  /**
+   * Report whether queue is empty
+   */
+  isEmpty(): boolean;
 }
