@@ -1,3 +1,4 @@
+import InsertionSorter from "./InsertionSort";
 import SelectionSorter from "./SelectionSort";
 import BubbleSorter from "./bubblesort";
 
@@ -24,6 +25,7 @@ export enum SortType {
 const sortAlgoMap = new Map<SortType, ArraySorter>([
   [SortType.BubbleSort, BubbleSorter],
   [SortType.SelectionSort, SelectionSorter],
+  [SortType.InsertionSort, InsertionSorter],
 ]);
 
 export function getSorter(name: SortType) {
