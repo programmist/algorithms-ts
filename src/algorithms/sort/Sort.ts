@@ -1,13 +1,16 @@
 import InsertionSorter from "./InsertionSort";
 import SelectionSorter from "./SelectionSort";
+import ShellSorter from "./ShellSort";
 import BubbleSorter from "./bubblesort";
 
+export type Sortable = number | string;
 export interface ArraySorter {
+  // TODO: Deal with sorting in place vs returning new array
   /**
    * Take an array of items and return a new, sorted array
    * @param list
    */
-  sort(list: number[]): number[];
+  sort(list: Sortable[]): Sortable[];
 }
 
 // https://www.geeksforgeeks.org/sorting-algorithms/
@@ -17,6 +20,7 @@ export enum SortType {
   BubbleSort,
   SelectionSort,
   InsertionSort,
+  ShellSort,
   HeapSort,
   MergeSort,
   QuickSort,
@@ -26,6 +30,7 @@ const sortAlgoMap = new Map<SortType, ArraySorter>([
   [SortType.BubbleSort, BubbleSorter],
   [SortType.SelectionSort, SelectionSorter],
   [SortType.InsertionSort, InsertionSorter],
+  [SortType.ShellSort, ShellSorter],
 ]);
 
 export function getSorter(name: SortType) {
