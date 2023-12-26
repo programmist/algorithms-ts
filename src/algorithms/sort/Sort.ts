@@ -1,7 +1,7 @@
 import InsertionSorter from "./InsertionSort";
 import SelectionSorter from "./SelectionSort";
 import ShellSorter from "./ShellSort";
-import BubbleSorter from "./bubblesort";
+import BubbleSorter from "./BubbleSort";
 
 export type Sortable = number | string;
 export interface ArraySorter {

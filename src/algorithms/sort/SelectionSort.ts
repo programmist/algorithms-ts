@@ -1,5 +1,5 @@
 import { ArraySorter, Sortable } from "./Sort";
-import { swap } from "./helpers";
+import { swap } from "../helpers";
 
 class SelectionSort implements ArraySorter {
   sort(list: Sortable[]): Sortable[] {
