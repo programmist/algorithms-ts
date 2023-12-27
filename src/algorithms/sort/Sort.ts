@@ -7,10 +7,10 @@ export type Sortable = number | string;
 export interface ArraySorter {
   // TODO: Deal with sorting in place vs returning new array
   /**
-   * Take an array of items and return a new, sorted array
+   * Take an array of items and sort in-place
    * @param list
    */
-  sort(list: Sortable[]): Sortable[];
+  sort(list: Sortable[]): void;
 }
 
 // https://www.geeksforgeeks.org/sorting-algorithms/

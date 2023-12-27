@@ -2,7 +2,7 @@ import { ArraySorter, Sortable } from "./Sort";
 import { swap } from "../helpers";
 
 class ShellSort implements ArraySorter {
-  sort(list: Sortable[]): Sortable[] {
+  sort(list: Sortable[]) {
     let h = 1;
 
     // get start of sequence
@@ -16,7 +16,6 @@ class ShellSort implements ArraySorter {
       }
       h = Math.floor(h / 3);
     }
-    return list;
   }
 }
 
