@@ -2,6 +2,7 @@ import InsertionSorter from "./InsertionSort";
 import SelectionSorter from "./SelectionSort";
 import ShellSorter from "./ShellSort";
 import BubbleSorter from "./BubbleSort";
+import MergeSorter from "./MergeSort";
 
 export type Sortable = number | string;
 export interface ArraySorter {
@@ -31,6 +32,7 @@ const sortAlgoMap = new Map<SortType, ArraySorter>([
   [SortType.SelectionSort, SelectionSorter],
   [SortType.InsertionSort, InsertionSorter],
   [SortType.ShellSort, ShellSorter],
+  [SortType.MergeSort, MergeSorter],
 ]);
 
 export function getSorter(name: SortType) {
