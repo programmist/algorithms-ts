@@ -1,15 +1,9 @@
-import { swap } from "../helpers";
+import { getRandomInt, swap } from "../helpers";
+import { Sortable } from "../sort/Sort";
 
-export default function shuffle(list: number[]) {
+export default function shuffle(list: Sortable[]) {
   for (let i = 1; i < list.length; i++) {
     const randomIndex = getRandomInt(0, i - 1);
     swap(list, i, randomIndex);
   }
-}
-
-function getRandomInt(min: number, max: number) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-
-  return Math.floor(Math.random() * (max - min) + min);
 }

@@ -13,11 +13,24 @@ class MergeSort implements ArraySorter {
     low: number,
     high: number
   ) {
+    // TODO: use insertion sort for smaller arrays
+    // TODO: Test at what point insertion is faster than merge to get the best number
+    const CUTOFF = 100;
+
+    if (high <= low + CUTOFF - 1) {
+      // Need to implement a version of insertion sort that takes an array + bounding indices
+      // insertionSort(list, low, high);
+      // return
+    }
     if (high <= low) return;
 
     const mid = midpoint(low, high);
     this.mergesort(list, aux, low, mid);
     this.mergesort(list, aux, mid + 1, high);
+
+    // lists are already sorted
+    if (list[mid] < list[mid + 1]) return;
+
     merge(list, aux, low, mid, high);
   }
 }

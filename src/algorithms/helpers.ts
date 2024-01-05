@@ -39,3 +39,16 @@ function copy(src: Sortable[], target: Sortable[], start: number, end: number) {
     target[i] = src[i];
   }
 }
+
+/**
+ * Return a random integer between the specified `min` and `max` range.
+ *
+ * @param min start of range (inclusive)
+ * @param max end of range (exclusive)
+ */
+export function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min) + min);
+}
